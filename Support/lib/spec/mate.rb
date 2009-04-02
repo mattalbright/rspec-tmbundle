@@ -2,8 +2,14 @@
 require 'rubygems'
 
 rspec_rails_plugin = File.join(ENV['TM_PROJECT_DIRECTORY'],'vendor','plugins','rspec','lib')
+rspec_merb_path = File.join(ENV['TM_PROJECT_DIRECTORY'], 'gems', 'gems', 'rspec*','lib')
+rspec_merb_plugin = ''
+Dir.glob(rspec_merb_path) { |path| rspec_merb_plugin = path }
+
 if File.directory?(rspec_rails_plugin)
   $LOAD_PATH.unshift(rspec_rails_plugin)
+elsif File.directory?(rspec_merb_plugin)
+  $LOAD_PATH.unshift(rspec_merb_plugin)
 elsif ENV['TM_RSPEC_HOME']
   rspec_lib = File.join(ENV['TM_RSPEC_HOME'], 'lib')
   unless File.directory?(rspec_lib)
